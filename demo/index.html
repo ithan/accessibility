@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern CSS & Accessibility Showcase (Enhanced)</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="A showcase combining modern CSS techniques with web accessibility best practices, featuring interactive examples and detailed explanations.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="light-mode"> 
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="site-header" role="banner">
+        <div class="header-content">
+            <!-- <div class="logo">A11y & Modern CSS</div> -->
+            
+            <nav aria-label="Main Navigation" role="navigation">
+                <ul>
+                    <li><a href="#slide-intro">Intro</a></li>
+                    <li><a href="#slide-form">Form</a></li>
+                    <li><a href="#slide-semantics">Semantics</a></li>
+                    <li><a href="#slide-images">Images</a></li>
+                    <li><a href="#slide-contrast">Contrast</a></li>
+                    <li><a href="#slide-aria">ARIA</a></li>
+                    <li><a href="#slide-table">Table</a></li>
+                    <li><a href="#slide-motion">Motion</a></li>
+                    <li><a href="#slide-disclosure">Disclosure</a></li>
+                    <li><a href="#slide-focus">Focus</a></li>
+                </ul>
+            </nav>
+             <button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle Theme">
+                 <i class="fa-solid fa-circle-half-stroke"></i>
+             </button>
+        </div>
+    </header>
+
+    <main id="main-content" class="presentation-container">
+        <section class="slide title-slide" id="slide-intro" aria-labelledby="slide-title-intro">
+            <div class="slide-content">
+                <h1 id="slide-title-intro">Modern CSS & Accessibility</h1>
+                <h2 class="subtitle">Showcasing Best Practices</h2>
+                <p>This page demonstrates accessible components using modern CSS, combining aesthetic design with inclusive principles.</p>
+                <p><strong>Try this:</strong> Use the 'Tab' key to navigate. The "Skip to main content" link should appear first. The navigation links and theme toggle are focusable. Pressing 'Enter' on the skip link jumps you past the header.</p>
+                <aside class="explanation">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <strong>Accessibility Points:</strong>
+                    <ul>
+                        <li><strong>Skip Link:</strong> Allows keyboard and screen reader users to bypass the repetitive header navigation and jump directly to the main content, improving efficiency (WCAG 2.4.1: Bypass Blocks).</li>
+                        <li><strong>Keyboard Navigation:</strong> All interactive elements (links, theme button) are reachable and operable using only the keyboard (WCAG 2.1.1: Keyboard).</li>
+                        <li><strong>Visible Focus:</strong> A clear visual indicator (outline/box-shadow using <code>:focus-visible</code>) highlights the element currently receiving keyboard focus, essential for sighted keyboard users (WCAG 2.4.7: Focus Visible).</li>
+                        <li><strong>Landmarks:</strong> Semantic HTML elements like <code>&lt;header&gt;</code> (with implicit <code>role="banner"</code>), <code>&lt;nav&gt;</code> (<code>role="navigation"</code>), and <code>&lt;main&gt;</code> define major page regions, helping assistive technology (AT) users understand the layout and navigate quickly (WCAG 1.3.1: Info and Relationships, WCAG 2.4.1: Bypass Blocks).</li>
+                        <li><strong>`aria-label` on `<nav>`:</strong> Provides a specific accessible name ("Main Navigation") for the navigation region, distinguishing it if multiple nav sections existed (WCAG 4.1.2: Name, Role, Value).</li>
+                        <li><strong>Logical Order:</strong> Elements receive focus in a sequence that follows the visual layout and makes sense (WCAG 2.4.3: Focus Order).</li>
+                         <li><strong>Theme Toggle Usability:</strong> Button has an accessible name (`aria-label`) that updates based on the current state, informing users of its function (WCAG 4.1.2). Includes a `title` attribute for sighted mouse users.</li>
+                    </ul>
+                </aside>
+            </div>
+        </section>
+
+        <section class="slide" id="slide-form" aria-labelledby="slide-title-form">
+            <div class="slide-content">
+                <h2 id="slide-title-form">Accessible Form Validation</h2>
+                <p>This form uses <code>:user-valid</code> and <code>:user-invalid</code> CSS pseudo-classes for feedback, avoiding distracting error messages before user interaction. Error messages use <code>aria-live</code>.</p>
+                <form class="accessible-form" action="#" method="post">
+                    <div class="form-group">
+                        <label for="name">Name <span aria-hidden="true">*</span></label>
+                        <input type="text" id="name" name="name" required autocomplete="name" aria-describedby="name-error name-success">
+                        <span id="name-error" class="validation-message error" aria-live="polite"><i class="fa-solid fa-circle-xmark"></i> Please enter your name.</span>
+                        <span id="name-success" class="validation-message success" aria-live="polite"><i class="fa-solid fa-circle-check"></i> Looks good!</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address <span aria-hidden="true">*</span></label>
+                        <input type="email" id="email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" autocomplete="email" aria-describedby="email-error email-success">
+                        <span id="email-error" class="validation-message error" aria-live="polite"><i class="fa-solid fa-circle-xmark"></i> Please enter a valid email address (e.g., user@example.com).</span>
+                         <span id="email-success" class="validation-message success" aria-live="polite"><i class="fa-solid fa-circle-check"></i> Valid email!</span>
+                    </div>
+                     <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </div>
+                     <div class="form-group checkbox-group">
+                        <input type="checkbox" id="subscribe" name="subscribe" required aria-describedby="subscribe-error subscribe-success">
+                        <label for="subscribe">I agree to the terms <span aria-hidden="true">*</span></label>
+                        <span id="subscribe-error" class="validation-message error" aria-live="polite"><i class="fa-solid fa-circle-xmark"></i> You must agree to the terms.</span>
+                        <span id="subscribe-success" class="validation-message success" aria-live="polite"><i class="fa-solid fa-circle-check"></i> Agreed!</span>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+                 <aside class="explanation">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <strong>Accessibility Points:</strong>
+                    <ul>
+                        <li><strong>Labels:</strong> Each input has a correctly associated <code>&lt;label&gt;</code> using `for`/`id`, ensuring users know what to enter (WCAG 1.3.1: Info and Relationships, WCAG 3.3.2: Labels or Instructions, WCAG 4.1.2: Name, Role, Value).</li>
+                        <li><strong>Required Fields:</strong> Indicated visually with an asterisk (<span aria-hidden="true">*</span>) and programmatically with the <code>required</code> attribute. The asterisk is hidden from screen readers via `aria-hidden="true"` to prevent announcing "star" repeatedly (WCAG 3.3.2).</li>
+                        <li><strong>`:user-invalid`/`:user-valid`:</strong> CSS pseudo-classes style the input fields (border, background) only *after* the user has interacted (typed and then moved focus away), preventing premature error states that can be confusing or stressful (Addresses usability concerns related to WCAG 3.3.1: Error Identification).</li>
+                        <li><strong>Error Identification & Messages:</strong> Clear visual cues (icons, color, border) and explicit text messages identify errors. Messages are associated using `aria-describedby` (though implicit association via sibling selectors is used here for CSS styling) and use <code>aria-live="polite"</code> so screen readers announce them non-interruptively when they appear (WCAG 3.3.1).</li>
+                        <li><strong>Success Feedback:</strong> Providing positive feedback (`:user-valid` styling and success messages) can improve user confidence.</li>
+                         <li><strong>Autocomplete:</strong> Relevant <code>autocomplete</code> attributes are used (e.g., `name`, `email`) to help users fill the form more quickly using browser features, especially beneficial for users with cognitive or motor impairments (WCAG 1.3.5: Identify Input Purpose).</li>
+                         <li><strong>Checkbox Grouping:</strong> Using flexbox/grid ensures the checkbox and its label stay aligned, and error messages appear logically below.</li>
+                    </ul>
+                </aside>
+            </div>
+        </section>
+
+        <section class="slide" id="slide-semantics" aria-labelledby="slide-title-semantics">
+            <div class="slide-content">
+                <h2 id="slide-title-semantics">Semantic HTML & Landmarks</h2>
+                <p>Using HTML elements for their intended purpose gives inherent meaning and structure, crucial for assistive technologies and overall robustness.</p>
+                <div class="landmark-demo">
+                    <header class="demo-block demo-header"><code>&lt;header&gt;</code> (Page/Site Banner)</header>
+                    <nav class="demo-block demo-nav"><code>&lt;nav&gt;</code> (Main Navigation)</nav>
+                    <main class="demo-block demo-main">
+                        <code>&lt;main&gt;</code> (Primary Page Content)
+                        <article class="demo-block demo-article">
+                            <code>&lt;article&gt;</code> (Self-contained piece)
+                            <h3>Article Title</h3>
+                            <p>Article content goes here...</p>
+                        </article>
+                         <section class="demo-block demo-section" aria-labelledby="section-heading-demo">
+                            <h3 id="section-heading-demo"><code>&lt;section&gt;</code> (Themed group)</h3>
+                            <p>Section content...</p>
+                        </section>
+                    </main>
+                    <aside class="demo-block demo-aside"><code>&lt;aside&gt;</code> (Complementary Content)</aside>
+                    <footer class="demo-block demo-footer"><code>&lt;footer&gt;</code> (Page/Site Footer)</footer>
+                </div>
+                <aside class="explanation">
+                    <i class="fa-solid fa-circle-info"></i>
+                     <strong>Accessibility Points:</strong>
+                    <ul>
+                        <li><strong>Structure & Meaning:</strong> Semantic elements like <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code>, and heading elements (<code>&lt;h1&gt;</code>-<code>&lt;h6&gt;</code>) create a meaningful document outline. This allows assistive technologies to interpret the page structure correctly (WCAG 1.3.1: Info and Relationships).</li>
+                        <li><strong>Landmarks for Navigation:</strong> These elements automatically define ARIA landmarks (banner, navigation, main, complementary, contentinfo), allowing screen reader users to quickly understand the page layout and jump directly to relevant sections, significantly improving navigation efficiency (WCAG 2.4.1: Bypass Blocks).</li>
+                        <li><strong>Robustness & Compatibility:</strong> Using standard, semantic HTML ensures better compatibility across different browsers, devices, and assistive technologies now and in the future. Relying on generic elements like <code>&lt;div&gt;</code> requires adding ARIA roles manually, which is more error-prone (WCAG 4.1.1: Parsing, WCAG 4.1.2: Name, Role, Value).</li>
+                        <li><strong>Heading Hierarchy:</strong> Using headings (<code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code>, etc.) in a logical, nested order (don't skip levels) creates a table of contents for the page, vital for screen reader users to skim and understand content organization (WCAG 1.3.1, WCAG 2.4.6: Headings and Labels).</li>
+                        <li><strong>Accessible Names for Regions:</strong> Generic elements like <code>&lt;section&gt;</code> don't automatically become landmarks. They need an accessible name (e.g., via <code>aria-labelledby</code> pointing to a visible heading, or <code>aria-label</code>) to be announced effectively by assistive technology.</li>
+                    </ul>
+                </aside>
+            </div>
+        </section>
+
+         <section class="slide" id="slide-images" aria-labelledby="slide-title-images">
+            <div class="slide-content columns">
+                <div>
+                    <h2 id="slide-title-images">Accessible Images & Graphics</h2>
+                    <p>Visuals need text alternatives (alt text) so their content or function is accessible to users who cannot see them.</p>
+                    <h3>Image Examples:</h3>
+
+                    <h4>Informative Graphic (CSS Gradient):</h4>
+                    <div class="demo-image css-gradient-informative" role="img"
+                         aria-label="Abstract blue graphic representing increasing success or growth.">
+                         
+                     </div>
+                    <p><code>aria-label</code> provides the text alternative for this CSS background image.</p>
+
+                    <h4>Decorative Graphic (CSS Gradient):</h4>
+                     <div class="demo-image css-gradient-decorative" role="img" aria-label=""> 
+                         
+                     </div>
+                     <p>Empty <code>aria-label=""</code> marks this purely decorative graphic to be ignored by screen readers. Alternatively, assign <code>role="presentation"</code>.</p>
+
+                    <h4>Image in a Figure:</h4>
+                    <figure class="demo-figure">
+                         <div class="demo-image css-gradient-figure" role="img"
+                              aria-label="Indigo geometric pattern representing a device feature.">
+                             
+                         </div>
+                         <figcaption>Figure 1: The device features a complex pattern.</figcaption>
+                    </figure>
+                    <p><code>&lt;figure&gt;</code> groups the graphic and its <code>&lt;figcaption&gt;</code>. <code>aria-label</code> still describes the graphic itself.</p>
+                </div>
+                 <div>
+                     <h4>Icon Font (Font Awesome):</h4>
+                    <p>
+                        <i class="fa-solid fa-gear" aria-hidden="true"></i> 
+                        <span class="visually-hidden">Settings</span> 
+                         Button Text
+                    </p>
+                    <p>Icon font is hidden (`aria-hidden`). Accessible text provided via adjacent text or visually hidden span.</p>
+
+                    <h4>Inline SVG Icon:</h4>
+                    <p>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" role="img" aria-labelledby="svg-title-info" focusable="false" class="demo-svg">
+                             <title id="svg-title-info">Information Icon</title>
+                             <path fill="currentColor" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z"/>
+                        </svg>
+                        More Information
+                    </p>
+                     <p>Inline SVG uses <code>&lt;title&gt;</code> (referenced by <code>aria-labelledby</code>) for its accessible name. `role="img"` clarifies its purpose. `focusable="false"` prevents redundant tab stops.</p>
+                </div>
+             </div>
+             <aside class="explanation">
+                 <i class="fa-solid fa-circle-info"></i>
+                 <strong>Accessibility Points:</strong>
+                 <ul>
+                     <li><strong>Text Alternatives:</strong> All non-text content that conveys meaning must have a text alternative (e.g., `alt` attribute for `&lt;img>`, `aria-label` or associated text for CSS backgrounds used informatively, `title` or labels for SVG). This allows screen readers to describe the content and ensures meaning is preserved if visuals don't load (WCAG 1.1.1: Non-text Content).</li>
+                     <li><strong>Informative vs. Decorative:</strong> Provide descriptive alternatives for informative visuals. Use empty `alt=""` (for `&lt;img>`) or `aria-label=""` or `role="presentation"` (for CSS/SVG) to mark purely decorative visuals, so they are ignored by assistive technologies.</li>
+                     <li><strong>Figure/Figcaption:</strong> Use <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code> to programmatically associate visual content (images, charts, code blocks) with a caption. The text alternative (`alt` or `aria-label`) should still describe the visual itself, while the caption provides context or summary (WCAG 1.3.1).</li>
+                     <li><strong>Icons (Font/SVG):</strong> Icons conveying meaning need accessible names. If text is already present (e.g., button label), hide the decorative icon with `aria-hidden="true"`. If the icon stands alone, provide an accessible name (e.g., visually hidden text, `aria-label`, SVG <code>&lt;title&gt;</code>). Use `role="img"` for standalone icon SVGs and `focusable="false"` to remove them from the tab order (WCAG 1.1.1, WCAG 4.1.2).</li>
+                    <li><strong>CSS Images:</strong> Providing accessible names for CSS background images is tricky. Using `role="img"` and `aria-label` on the container element is one approach, but ensure the element itself is otherwise semantically neutral (like a `<span>` or `<div>`).</li>
+                 </ul>
+             </aside>
+        </section>
+
+        
+        <section class="slide" id="slide-contrast" aria-labelledby="slide-title-contrast">
+            <div class="slide-content">
+                <h2 id="slide-title-contrast">Color Contrast & Cues</h2>
+                <p>Sufficient contrast between text/UI elements and their background is crucial. Color should not be the only means of conveying information.</p>
+                <div class="contrast-examples columns">
+                    <div>
+                        <h3>Good Contrast Examples (AA):</h3>
+                        <p class="contrast-box good-text-normal">Regular Text (4.5:1+)</p>
+                        <p class="contrast-box good-text-large large-text">Large Text (3:1+)</p>
+                        <button class="contrast-box good-ui">UI Component (3:1+)</button>
+                    </div>
+                    <div>
+                        <h3>Bad Contrast Examples:</h3>
+                        <p class="contrast-box bad-text-normal">Low Contrast <i class="fa-solid fa-triangle-exclamation"></i></p>
+                        <p class="contrast-box bad-text-large large-text">Low Contrast <i class="fa-solid fa-triangle-exclamation"></i></p>
+                        <button class="contrast-box bad-ui">Low Contrast <i class="fa-solid fa-triangle-exclamation"></i></button>
+                    </div>
+                </div>
+                 <h4>Non-Color Cues:</h4>
+                <p>This link <a href="#" class="link-in-text">uses an underline on hover/focus</a> in addition to color difference.</p>
+                <p><span class="status-indicator error"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i> Error:</span> Using icon and bold text, not just red color.</p>
+                <p><span class="status-indicator success"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Success:</span> Using icon and bold text, not just green color.</p>
+
+                <aside class="explanation">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <strong>Accessibility Points:</strong>
+                    <ul>
+                        <li><strong>Contrast Ratios:</strong> WCAG Level AA requires a contrast ratio of at least 4.5:1 for normal-sized text and 3:1 for large text (defined as 18pt/≈24px regular weight, or 14pt/≈19px bold weight) against its background (WCAG 1.4.3: Contrast (Minimum)).</li>
+                        <li><strong>UI Components & Graphics:</strong> Visual information needed to identify UI components (like button boundaries, input borders) and graphical objects (like icons, graph lines) must have a contrast ratio of at least 3:1 against adjacent colors (WCAG 1.4.11: Non-text Contrast).</li>
+                        <li><strong>Use of Color Alone:</strong> Color must not be the *only* visual means used to convey information, indicate an action, prompt a response, or distinguish a visual element. Provide redundant cues like underlines (especially on hover/focus for links in text), icons, patterns, or text labels (WCAG 1.4.1: Use of Color).</li>
+                        <li><strong>Benefits:</strong> Sufficient contrast helps users with low vision, color vision deficiencies (color blindness), and situational limitations (e.g., bright sunlight). It reduces eye strain for everyone.</li>
+                         <li><strong>Decorative Icons in Status:</strong> The icons in the status indicators are marked with `aria-hidden="true"` because the adjacent text ("Error:", "Success:") already conveys the primary meaning. The icon serves as a redundant visual cue.</li>
+                    </ul>
+                </aside>
+            </div>
+        </section>
+
+        
+        <section class="slide" id="slide-aria" aria-labelledby="slide-title-aria">
+            <div class="slide-content">
+                <h2 id="slide-title-aria">Purposeful ARIA: Live Regions</h2>
+                <p>ARIA (Accessible Rich Internet Applications) adds semantics where HTML lacks them, especially for dynamic content. Use native HTML first! ARIA live regions allow screen readers to announce changes without the user having to shift focus.</p>
+
+                <button id="trigger-update-btn" class="demo-button">Trigger Status Update</button>
+
+                <div class="status-message-container">
+                    <p>System Status:</p>
+                    
+                    <div id="status-box" class="status-box-live" role="status" aria-live="polite">
+                        Idle. Click button to simulate updates.
+                    </div>
+                </div>
+
+                <aside class="explanation">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <strong>Accessibility Points:</strong>
+                    <ul>
+                        <li><strong>First Rule of ARIA: Use Native HTML First.</strong> ARIA should supplement HTML, not replace it unnecessarily. Elements like <code>&lt;button&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;details&gt;</code> have built-in accessibility features (WCAG 4.1.2).</li>
+                        <li><strong>`aria-live="polite"`:</strong> Designates this container as a "live region". When JavaScript modifies the content inside this region, screen readers will announce the updated content *after* finishing their current utterance. This is suitable for non-critical updates like status messages, notifications, loading indicators.</li>
+                        <li><strong>`role="status"`:</strong> A specific type of live region role, implicitly setting `aria-live="polite"` and `aria-atomic="true"`. `aria-atomic="true"` means the entire content of the region is announced on change, which is often desired for status messages.</li>
+                        <li><strong>`aria-live="assertive"`:</strong> Should be used sparingly for critical, time-sensitive updates (like error messages that need immediate attention) because it interrupts whatever the screen reader is currently announcing.</li>
+                        <li><strong>Dynamic Content Updates:</strong> Live regions solve the problem where content changes visually on the page (e.g., via AJAX or JS) without a full page reload, which screen reader users might otherwise miss.</li>
+                        <li><strong>Content Considerations:</strong> Keep the content within live regions concise and informative. Avoid putting interactive elements (links, buttons) directly inside, as users typically cannot interact with announced live region content easily. Triggering focus changes might be better for interactive updates.</li>
+                    </ul>
+                </aside>
+            </div>
+        </section>
+
+        
+        <section class="slide" id="slide-table" aria-labelledby="slide-title-table">
+            <div class="slide-content">
+                <h2 id="slide-title-table">Accessible Data Table</h2>
+                <p>Proper table markup (<code>&lt;caption&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;th&gt;</code> with <code>scope</code> attributes) is essential for screen readers to interpret data relationships correctly.</p>
+                 <div class="table-wrapper"> 
+                     <table class="demo-table">
+                        <caption>Browser Feature Support Matrix - April 2025</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Feature</th>
+                                <th scope="col">Chrome</th>
+                                <th scope="col">Firefox</th>
+                                <th scope="col">Safari</th>
+                                <th scope="col">Edge</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">CSS Nesting</th>
+                                <td><i class="fa-solid fa-check" ></i> Yes</td>
+                                <td><i class="fa-solid fa-check" ></i> Yes</td>
+                                <td><i class="fa-solid fa-check" ></i> Yes</td>
+                                <td><i class="fa-solid fa-check" ></i> Yes</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">:has() Selector</th>
+                                <td><i class="fa-solid fa-check" ></i> Yes</td>
+                                <td><i class="fa-solid fa-check" ></i> Yes</td>
+                                <td><i class="fa-solid fa-check" ></i> Yes</td>
+                                <td><i class="fa-solid fa-check" ></i> Yes</td>
+                            </tr>
+                             <tr>
+                                <th scope="row">Container Queries</th>
+                                <td><i class="fa-solid fa-check" ></i> Yes</td>
+                                <td><i class="fa-solid fa-check" ></i> Yes</td>
+                                <td><i class="fa-solid fa-check" ></i> Yes</td>
+                                <td><i class="fa-solid fa-check" ></i> Yes</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">View Transitions API</th>
+                                 <td><i class="fa-solid fa-circle-half-stroke" ></i> Partial</td>
+                                 <td><i class="fa-solid fa-xmark" ></i> No</td>
+                                 <td><i class="fa-solid fa-xmark" ></i> No</td>
+                                 <td><i class="fa-solid fa-circle-half-stroke" ></i> Partial</td>
+                             </tr>
+                         </tbody>
+                        <tfoot>
+                             <tr>
+                                <th scope="row">Overall Support</th>
+                                <td colspan="4">Varies by feature and browser version.</td>
+                             </tr>
+                         </tfoot>
+                    </table>
+                </div>
+                <aside class="explanation">
+                    <i class="fa-solid fa-circle-info"></i>
+                     <strong>Accessibility Points:</strong>
+                    <ul>
+                        <li><strong>`<caption>`:</strong > Provides a programmatic title for the data table, helping users understand its purpose before diving into the data (WCAG 1.3.1).</li>
+                        <li><strong>`<thead>`, `<tbody>`, `<tfoot>`:</strong > Define the header, body, and footer sections of the table, adding structural context (WCAG 1.3.1).</li>
+                        <li><strong>`<th>` (Table Header Cell):</strong > Correctly marks cells that function as headers for columns or rows (WCAG 1.3.1).</li>
+                        <li><strong>`scope="col"` / `scope="row"`:</strong > Explicitly associates header cells (`<th>`) with the column (`col`) or row (`row`) they apply to. This is crucial for screen readers to correctly announce the relevant header(s) as a user navigates through data cells (`<td>`), maintaining context (WCAG 1.3.1).</li>
+                        <li><strong>Data Cell (`<td>`):</strong > Contains the actual data points corresponding to the headers.</li>
+                        <li><strong>Clarity over Complexity:</strong> Simple table structures (like this example) are generally easier for assistive technologies to parse and for users to understand than tables with merged cells (`colspan`, `rowspan`) or multiple levels of headers. For complex tables, using `id` on headers and the `headers` attribute on data cells might be necessary, but `scope` is preferred for simpler cases.</li>
+                        <li><strong>Responsiveness:</strong> Wrapping the table in a container with `overflow-x: auto` ensures content doesn't break the layout on small screens and allows horizontal scrolling if needed.</li>
+                        <li><strong>Icons with Labels:</strong> The icons used provide a visual cue, but the `aria-label` attribute ensures the meaning ("Supported", "Not Supported", "Partial Support") is conveyed to screen reader users (WCAG 1.1.1).</li>
+                    </ul>
+                </aside>
+            </div>
+        </section>
+
+         
+        <section class="slide" id="slide-motion" aria-labelledby="slide-title-motion">
+            <div class="slide-content">
+                 <h2 id="slide-title-motion">Respecting Motion Preferences</h2>
+                <p>Animations can cause issues for users with vestibular disorders, epilepsy, or cognitive impairments. Use the <code>prefers-reduced-motion</code> media query and provide controls where appropriate.</p>
+
+                <div class="motion-demo-container">
+                     <h3>Example Animation:</h3>
+                     <div id="animated-box" class="motion-box-demo">Spinning Box</div>
+
+                     <h3>Control (Simulation):</h3>
+                     <label class="toggle-switch" for="motion-toggle-input">
+                        <input type="checkbox" id="motion-toggle-input">
+                        <span class="slider round"></span>
+                         Reduce Motion
+                     </label>
+                    <p><small>This toggle simulates the OS setting for demo purposes. Check your OS Accessibility settings to test <code>prefers-reduced-motion</code> directly.</small></p>
+                     <p><small>
+                        Warning: By default, toggles don't support Enter as the activiation key. <b>Use spacebar</b>. Enter is reserved for form submission.
+                     </small></p>
+                </div>
+
+                <aside class="explanation">
+                     <i class="fa-solid fa-circle-info"></i>
+                     <strong>Accessibility Points:</strong>
+                    <ul>
+                        <li><strong>`prefers-reduced-motion` Media Query:</strong> CSS can detect if a user has requested reduced motion in their operating system or browser settings. Styles within `@media (prefers-reduced-motion: reduce) { ... }` should disable or significantly minimize non-essential animations (e.g., fades instead of zooms, removing spinning).</li>
+                        <li><strong>WCAG 2.2.2 Pause, Stop, Hide:</strong> For any moving, blinking, scrolling, or auto-updating information that (1) starts automatically, (2) lasts more than five seconds, and (3) is presented in parallel with other content, there must be a mechanism for the user to pause, stop, or hide it. This doesn't apply to purely decorative animations or animations essential for the activity (like loading spinners), but respecting `prefers-reduced-motion` is still best practice for those.</li>
+                        <li><strong>User Control:</strong> While `prefers-reduced-motion` handles system-level preference, providing specific controls within the interface (like the toggle simulated here) can offer users more granular control over animations on a site-by-site basis, especially for complex or potentially distracting animations.</li>
+                        <li><strong>Types of Motion Issues:</strong> Large-scale motion, parallax scrolling, flashing effects (below 3 flashes per second, as faster rates fall under WCAG 2.3.1 Seizures), and non-essential animations can trigger dizziness, nausea, migraines, or make it difficult to concentrate.</li>
+                        <li><strong>Implementation:</strong> Set standard animations, then override them within the `reduce` media query. The JS toggle here adds/removes a class (`reduce-motion-forced`) to demonstrate the visual effect without changing OS settings.</li>
+                     </ul>
+                 </aside>
+            </div>
+        </section>
+
+        
+        <section class="slide" id="slide-disclosure" aria-labelledby="slide-title-disclosure">
+             <div class="slide-content">
+                 <h2 id="slide-title-disclosure">Accessible Custom Disclosure (Accordion)</h2>
+                <p>While native <code>&lt;details&gt;/&lt;summary&gt;</code> is often best, sometimes a custom accordion is needed. This requires careful use of ARIA attributes and JavaScript for keyboard interaction.</p>
+
+                 <div class="custom-accordion">
+                    <h3>Frequently Asked Questions</h3>
+                    <div class="accordion-item">
+                         <h4>
+                             <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-1" id="trigger-1">
+                                What is ARIA?
+                                <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                            </button>
+                        </h4>
+                         <div class="accordion-panel" role="region" aria-labelledby="trigger-1" id="panel-1" hidden>
+                            <p>ARIA (Accessible Rich Internet Applications) is a set of attributes you can add to HTML elements to make web content and applications more accessible, especially when standard HTML semantics are insufficient (e.g., for complex custom widgets).</p>
+                         </div>
+                    </div>
+                     <div class="accordion-item">
+                         <h4>
+                             <button class="accordion-trigger" aria-expanded="false" aria-controls="panel-2" id="trigger-2">
+                                When should I use ARIA?
+                                 <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                            </button>
+                         </h4>
+                         <div class="accordion-panel" role="region" aria-labelledby="trigger-2" id="panel-2" hidden>
+                             <p>Use ARIA primarily to: Define roles for custom widgets (like menus, grids, sliders), add state information (like `aria-expanded`, `aria-selected`), define properties (like `aria-required`), build landmark regions if semantic HTML isn't used, and manage live regions. Always follow the <a href="https://www.w3.org/WAI/ARIA/apg/" target="_blank" rel="noopener noreferrer">ARIA Authoring Practices Guide (APG)</a> patterns.</p>
+                            <p><strong>Remember the First Rule of ARIA:</strong> If a native HTML element has the semantics and behavior you need, use it instead!</p>
+                        </div>
+                    </div>
+                </div>
+
+                 <aside class="explanation">
+                     <i class="fa-solid fa-circle-info"></i>
+                     <strong>Accessibility Points:</strong>
+                    <ul>
+                        <li><strong>Prefer Native <code>&lt;details&gt;</code>:</strong> The native HTML <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> elements provide accordion functionality with built-in keyboard accessibility and semantics, making them the preferred choice when suitable.</li>
+                         <li><strong>Trigger Element (<code>&lt;button&gt;</code>):</strong> Using a <code>&lt;button&gt;</code> is semantically correct for an interactive control that triggers an action (showing/hiding content). It's keyboard focusable and activatable with Enter/Spacebar by default.</li>
+                        <li><strong>`aria-expanded` (State):</strong> Indicates whether the controlled panel is currently visible (`true`) or hidden (`false`). This state must be toggled via JavaScript when the button is activated.</li>
+                        <li><strong>`aria-controls` (Relationship):</strong> Associates the trigger button with the content panel it controls, using the `id` of the panel.</li>
+                        <li><strong>Panel Element (`role="region"`, `aria-labelledby`):</strong> The content panel can be given `role="region"` and labelled by the trigger button using `aria-labelledby` to define it as a distinct section associated with the heading/trigger.</li>
+                        <li><strong>`hidden` Attribute:</strong> Use the `hidden` attribute (or CSS `display: none`) to visually hide the panel and remove it from the accessibility tree when collapsed. JavaScript toggles this attribute along with `aria-expanded`.</li>
+                        <li><strong>Keyboard Interaction:</strong> Ensure standard button activation (Enter/Space) works. For accordion sets, users should typically be able to navigate between triggers using Tab/Shift+Tab (or sometimes Arrow keys, depending on the pattern). Refer to ARIA APG for specific patterns.</li>
+                         <li><strong>Visual Cues:</strong> An icon (like the chevron) provides a visual affordance for the expanded/collapsed state, and it should change orientation. The icon is hidden from AT with `aria-hidden="true"` as the `aria-expanded` state provides the programmatic information.</li>
+                    </ul>
+                </aside>
+            </div>
+        </section>
+
+        
+        <section class="slide" id="slide-focus" aria-labelledby="slide-title-focus">
+             <div class="slide-content">
+                 <h2 id="slide-title-focus">Focus Management Concepts</h2>
+                <p>Managing keyboard focus programmatically is crucial for accessible dynamic interfaces like modals, menus, and single-page applications.</p>
+                <h3> Focus Management Example:</h3>
+                <div class="focus-demo">
+                    <h4>Example Scenario: Modal Dialog</h4>
+                    <button id="open-modal-btn" class="demo-button">Open Modal (Conceptual)</button>
+                     <p><em>(A real modal implementation requires significant JavaScript for focus trapping, state management, and ARIA attributes.)</em></p>
+
+                    <div id="conceptual-modal" class="modal-placeholder" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+                         <h3 id="modal-title">Conceptual Modal</h3>
+                        <p>When opened:</p>
+                        <ul>
+                            <li>Focus moves to the modal container or first focusable element inside.</li>
+                            <li>Keyboard focus is trapped *inside* the modal (Tab/Shift+Tab cycle only within).</li>
+                             <li>Background content is inert (using `inert` attribute or `aria-hidden`).</li>
+                        </ul>
+                        <button id="close-modal-btn">Close</button>
+                     </div>
+                </div>
+
+                 <aside class="explanation">
+                     <i class="fa-solid fa-circle-info"></i>
+                     <strong>Accessibility Points:</strong>
+                    <ul>
+                        <li><strong>Why Manage Focus?</strong> When content appears dynamically (modals, menus) or the UI changes significantly (SPA view transitions), keyboard and screen reader focus might be lost or move unexpectedly. Programmatic focus management ensures users land in a logical place.</li>
+                        <li><strong>Moving Focus on Open:</strong> When a modal dialog opens, focus should be moved programmatically (using `element.focus()`) to either the dialog container itself or the first interactive element within it (e.g., a close button or the first form field) (WCAG 2.4.3: Focus Order).</li>
+                        <li><strong>Focus Trapping (Modals):</strong> For modal dialogs (`role="dialog"`, `aria-modal="true"`), keyboard focus *must* be trapped within the dialog. Users should only be able to Tab/Shift+Tab between elements inside the modal until it is closed. This prevents interaction with the background content (WCAG 2.4.3, WCAG 2.1.1).</li>
+                        <li><strong>Returning Focus on Close:</strong> When the modal or dynamic component is closed, focus must be programmatically returned to the element that originally triggered it (e.g., the "Open Modal" button). This maintains user orientation (WCAG 2.4.3).</li>
+                        <li><strong>Inert Background:</strong> Content outside an active modal dialog should be made inert, preventing AT users from accidentally navigating to it. This can be done using the `inert` attribute on background sections or `aria-hidden="true"` (though `inert` is generally preferred if supported).</li>
+                        <li><strong>Complexity:</strong> Implementing robust focus management, especially trapping, requires careful JavaScript. Using the native HTML <code>&lt;dialog&gt;</code> element or established UI libraries often handles this complexity more reliably.</li>
+                        <li><strong>Other Scenarios:</strong> Focus management is also key for single-page application route changes (moving focus to the main content or heading of the new view), custom menus (moving focus on Arrow key presses), and error summaries (moving focus to the first invalid field).</li>
+                    </ul>
+                </aside>
+            </div>
+        </section>
+
+
+    </main>
+
+     
+    <script>
+        // --- Theme Toggle ---
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        function applyTheme(theme) {
+          // Remove existing theme classes first
+          body.classList.remove('light-mode', 'dark-mode');
+          const label = theme === 'dark' ? 'Toggle light mode' : 'Toggle dark mode';
+          themeToggle.setAttribute('aria-label', label);
+          themeToggle.setAttribute('title', label); // Update title too
+          // Add the new theme class
+          body.classList.add(theme + '-mode');
+          localStorage.setItem('theme', theme); // Save preference
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const initialTheme = savedTheme ? savedTheme : (prefersDark ? 'dark' : 'light');
+        applyTheme(initialTheme); // Apply on load
+
+        themeToggle.addEventListener('click', () => {
+             const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+             applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) { // Only follow system if no user preference is saved
+                applyTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+
+        // --- ARIA Live Region Update ---
+        const triggerBtn = document.getElementById('trigger-update-btn');
+        const statusBox = document.getElementById('status-box');
+        let liveUpdateCount = 0;
+        const liveStatuses = ['Processing request...', 'Fetching data...', 'Validating input...', 'Update successful!', 'Ready. Click again.'];
+
+        if (triggerBtn && statusBox) {
+            triggerBtn.addEventListener('click', () => {
+                liveUpdateCount = (liveUpdateCount + 1) % liveStatuses.length;
+                statusBox.textContent = liveStatuses[liveUpdateCount];
+                // The change in textContent automatically triggers the polite announcement
+            });
+        }
+
+         // --- Reduced Motion Toggle Simulation ---
+         const motionToggleInput = document.getElementById('motion-toggle-input');
+         const animatedBox = document.getElementById('animated-box');
+
+         if (motionToggleInput && animatedBox) {
+            motionToggleInput.addEventListener('change', () => {
+                if (motionToggleInput.checked) {
+                    animatedBox.classList.add('reduce-motion-forced');
+                } else {
+                     animatedBox.classList.remove('reduce-motion-forced');
+                }
+             });
+        }
+
+        // --- Custom Accordion ---
+         const accordionTriggers = document.querySelectorAll('.accordion-trigger');
+
+         accordionTriggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                 const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+                const controlledPanelId = trigger.getAttribute('aria-controls');
+                 const panel = document.getElementById(controlledPanelId);
+
+                trigger.setAttribute('aria-expanded', !isExpanded);
+                 if (panel) {
+                    panel.hidden = isExpanded; // Toggle hidden attribute
+                 }
+            });
+
+             // Optional: Add Enter/Space key handling if needed (though buttons do this natively)
+            trigger.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                     event.preventDefault(); // Prevent scrolling on Space
+                     trigger.click();
+                }
+            });
+         });
+
+        // --- Focus Management (Conceptual Modal - NO focus trap) ---
+        // This is *highly* simplified and does NOT implement focus trapping
+        // A real modal needs libraries or complex JS (or native <dialog>)
+         const openModalBtn = document.getElementById('open-modal-btn');
+         const closeModalBtn = document.getElementById('close-modal-btn');
+         const conceptualModal = document.getElementById('conceptual-modal');
+
+        if (openModalBtn && closeModalBtn && conceptualModal) {
+            openModalBtn.addEventListener('click', () => {
+                conceptualModal.hidden = false;
+                // In a real modal, you'd trap focus here and move focus inside
+                closeModalBtn.focus(); // Simplistic focus move
+            });
+
+            closeModalBtn.addEventListener('click', () => {
+                 conceptualModal.hidden = true;
+                 // Return focus to the button that opened the modal
+                 openModalBtn.focus();
+             });
+
+             // Add Esc key closing (basic)
+             conceptualModal.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                     closeModalBtn.click(); // Trigger the close button's action
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>

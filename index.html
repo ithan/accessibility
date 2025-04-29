@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility Showcase Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Entry point to the Web Accessibility Presentation and Interactive Demo.">
+    <style>
+        /* Add simple styles for the link tree page if needed */
+        @layer components {
+            .link-tree-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 80vh; /* Adjust as needed */
+                text-align: center;
+                padding: var(--space-lg);
+            }
+
+            .link-tree-container h1 {
+                margin-bottom: var(--space-lg);
+                color: var(--primary-color);
+            }
+
+            .link-button {
+                display: inline-block;
+                padding: var(--space-md) var(--space-lg);
+                margin: var(--space-sm);
+                background-color: var(--primary-color);
+                color: var(--bg-color);
+                text-decoration: none;
+                border-radius: var(--border-radius-md);
+                font-weight: var(--fw-bold);
+                transition: background-color var(--transition-speed) var(--transition-ease), transform var(--transition-speed) var(--transition-ease);
+                border: 2px solid transparent; /* For focus outline consistency */
+            }
+
+            .link-button:hover {
+                background-color: color-mix(in srgb, var(--primary-color) 85%, var(--text-color) 15%);
+                transform: translateY(-2px);
+                text-decoration: none; /* Keep underline off on hover */
+            }
+
+            /* Use existing focus-visible from style.css, but ensure it applies */
+            .link-button:focus-visible {
+                 outline: 3px solid var(--focus-ring-color);
+                 outline-offset: 2px;
+                 box-shadow: 0 0 0 4px var(--bg-color); /* Match existing focus style */
+            }
+             .link-button:focus:not(:focus-visible) {
+                 outline: none; /* Remove outline for mouse focus */
+                 box-shadow: none;
+             }
+        }
+    </style>
+</head>
+<body>
+    <main id="main-content">
+        <div class="link-tree-container">
+            <h1>Accessibility Showcase</h1>
+            <p>Choose an option below to explore practical web accessibility.</p>
+            <div>
+                <a href="presentation.html" class="link-button">View Presentation</a>
+                <a href="demo/index.html" class="link-button">Explore Interactive Demo</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

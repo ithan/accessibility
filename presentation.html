@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building an Inclusive Web: Practical Accessibility for Everyone</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description"
+        content="A presentation on web accessibility principles and practices, built using modern CSS and prioritizing accessibility.">
+</head>
+
+<body>
+    <button type="button" id="help-toggle" class="help-button" aria-label="Help navigating slides"
+        aria-haspopup="dialog">
+        <span class="f1-hint">Help - <kbd>F1</kbd> to open</span>
+    </button>
+
+
+    <main id="main-content" class="presentation-container">
+
+        <section class="slide title-slide" id="slide-1" aria-labelledby="slide-title-1">
+            <div class="slide-content">
+                <h1 id="slide-title-1">Building an Inclusive Web</h1>
+                <h2 class="subtitle">Practical Accessibility (A11y) for Everyone</h2>
+                <p class="presenter-info">Why it matters, how we do it, and how everyone benefits.</p>
+                <p class="meta-info">Presented by: Ithan lara | April 22, 2025</p>
+            </div>
+        </section>
+
+        <section class="slide" id="slide-2" aria-labelledby="slide-title-2">
+            <div class="slide-content">
+                <h2 id="slide-title-2">What IS Web Accessibility (A11y)?</h2>
+                <ul>
+                    <li>Designing web content so <strong>everyone</strong> can use it, including people with
+                        disabilities.</li>
+                    <li>Enabling people to <strong>perceive, understand, navigate,</strong> and
+                        <strong>interact</strong> with the web.
+                    </li>
+                    <li>
+                        <blockquote>"Access by everyone regardless of disability is an essential aspect." <cite>– Sir
+                                Tim Berners-Lee</cite></blockquote>
+                    </li>
+                    <li>It's about removing barriers in the digital world.</li>
+                </ul>
+                <aside class="tech-note">Uses semantic lists & blockquote.</aside>
+            </div>
+        </section>
+
+        <section class="slide" id="slide-3" aria-labelledby="slide-title-3">
+            <div class="slide-content">
+                <h2 id="slide-title-3">It's Not Just About Disability...</h2>
+                <p>Accessibility benefits people with:</p>
+                <ul>
+                    <li><strong>Permanent disabilities</strong> (visual, auditory, motor, cognitive)</li>
+                    <li><strong>Temporary impairments</strong> (e.g., broken arm, lost glasses)</li>
+                    <li><strong>Situational limitations</strong> (e.g., bright sunlight, noisy place, slow internet)
+                    </li>
+                    <li><strong>Aging users</strong> with changing abilities</li>
+                </ul>
+                <p class="highlight">Essentially, accessibility improves overall usability for <strong>ALL</strong>
+                    users.</p>
+                <aside class="tech-note">Clear separation of concepts using lists.</aside>
+            </div>
+        </section>
+
+        <section class="slide interactive-slide" id="slide-4" aria-labelledby="slide-title-4">
+            <div class="slide-content">
+                <h2 id="slide-title-4">Interactive Moment: The Doors</h2>
+                <div class="door-comparison">
+                    <figure>
+                        <img src="assets/door-automatic.png"
+                            alt="Automatic sliding glass doors, open and easy to pass through.">
+                        <figcaption>Automatic Doors</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="assets/door-manual.jpg"
+                            alt="Heavy, closed wooden double doors that need to be pulled open.">
+                        <figcaption>Manual Doors</figcaption>
+                    </figure>
+                </div>
+                <div class="">
+                    <p>Which door is easier if you're using a wheelchair? Pushing a stroller? Carrying boxes?</p>
+                    <p>The accessible option (automatic) is often the most convenient for <strong>everyone</strong>.</p>
+                </div>
+
+                <aside class="tech-note">Uses figure & figcaption. Meaningful alt text.</aside>
+            </div>
+        </section>
+
+        <section class="slide" id="slide-5" aria-labelledby="slide-title-5">
+            <div class="slide-content">
+                <h2 id="slide-title-5">Think Beyond the Mouse: Keyboard & Screen Readers</h2>
+                <p>Many users navigate *without* a mouse due to preference or necessity (motor impairments, visual
+                    impairments).</p>
+                <div class="columns">
+                    <div>
+                        <h3>Keyboard Navigation (Try the "Tab Test"!)</h3>
+                        <ul>
+                            <li>Uses <strong>Tab</strong> / <strong>Shift+Tab</strong> to move between interactive items
+                                (links, buttons, forms).</li>
+                            <li>Uses <strong>Enter</strong> / <strong>Space</strong> to activate items.</li>
+                            <li>Uses <strong>Arrow Keys</strong> within components (menus, sliders).</li>
+                            <li>Relies entirely on clear <strong>focus indicators</strong> to know "where" they are.
+                            </li>
+                            <li>Needs a logical source order for predictable movement.</li>
+                        </ul>
+                        <p class="highlight">Try navigating a page using only your keyboard!</p>
+                    </div>
+                    <div>
+                        <h3>Screen Readers Add Layers:</h3>
+                        <ul>
+                            <li>Reads content aloud (text, labels, <strong>alt text</strong>).</li>
+                            <li>Announces element types and states (e.g., "button, pressed", "link, visited").</li>
+                            <li>Uses semantic structure (<strong>Headings, Landmarks</strong>) for efficient page
+                                skimming and navigation (e.g., jump to next heading).</li>
+                            <li>Turns a visual interface into an auditory/braille one.</li>
+                        </ul>
+                    </div>
+                </div>
+                <aside class="tech-note">Emphasizes keyboard use & semantic structure's role.</aside>
+            </div>
+        </section>
+
+        <section class="slide" id="slide-6" aria-labelledby="slide-title-6">
+            <div class="slide-content">
+                <h2 id="slide-title-6">Core Principles: WCAG & POUR</h2>
+                <p>Based on <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank"
+                        rel="noopener noreferrer">WCAG</a> (Web Content Accessibility Guidelines), aiming for Level AA.
+                </p>
+                <div class="pour-grid">
+                    <div class="pour-item">
+                        <h3>Perceivable</h3>
+                        <p>Users can identify content/UI via senses.</p>
+                    </div>
+                    <div class="pour-item">
+                        <h3>Operable</h3>
+                        <p>Users can successfully use controls/navigation.</p>
+                    </div>
+                    <div class="pour-item">
+                        <h3>Understandable</h3>
+                        <p>Content and interface are clear & consistent.</p>
+                    </div>
+                    <div class="pour-item">
+                        <h3>Robust</h3>
+                        <p>Works across browsers, devices, AT.</p>
+                    </div>
+                </div>
+                <aside class="tech-note">External link uses target blank & rel noopener noreferrer. Uses a simple grid
+                    layout.</aside>
+            </div>
+        </section>
+
+        <section class="slide" id="slide-7" aria-labelledby="slide-title-7">
+            <div class="slide-content">
+                <h2 id="slide-title-7">POUR in Practice: Perceivable & Operable</h2>
+                <div class="columns">
+                    <div>
+                        <h3>Perceivable Examples</h3>
+                        <ul>
+                            <li>✅ Meaningful <code>alt</code> text for images</li>
+                            <li>✅ Sufficient Color Contrast (e.g., ≥ 4.5:1 text)</li>
+                            <li>✅ Captions/Transcripts for media</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Operable Examples</h3>
+                        <ul>
+                            <li>✅ Full Keyboard Accessibility</li>
+                            <li>✅ Clear, Visible Focus States (<code>:focus-visible</code>)</li>
+                            <li>✅ Consistent Navigation / Reduce Motion</li>
+                            <li>✅ Skip Navigation Links</li>
+                        </ul>
+                    </div>
+                </div>
+                <aside class="tech-note">Uses two-column layout for comparison. Uses checkmarks for clarity.</aside>
+            </div>
+        </section>
+
+        <section class="slide" id="slide-8" aria-labelledby="slide-title-8">
+            <div class="slide-content">
+                <h2 id="slide-title-8">POUR in Practice: Understandable & Robust</h2>
+                <div class="columns">
+                    <div>
+                        <h3>Understandable Examples</h3>
+                        <ul>
+                            <li>✅ Clear, Simple Language; Avoid Jargon</li>
+                            <li>✅ Logical Structure (Headings, Lists)</li>
+                            <li>✅ Predictable Layouts & Interactions</li>
+                            <li>✅ Readable Fonts, Spacing, Text Size</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Robust Examples</h3>
+                        <ul>
+                            <li>✅ Use Semantic HTML (<code>&lt;nav&gt;, &lt;button&gt;</code> etc.)</li>
+                            <li>✅ Write Valid Code</li>
+                            <li>✅ Use ARIA only when necessary</li>
+                            <li>✅ Test across browsers & Assistive Tech (AT)</li>
+                        </ul>
+                    </div>
+                </div>
+                <aside class="tech-note">Consistent layout with previous slide. Reinforces semantic HTML.</aside>
+            </div>
+        </section>
+
+        <section class="slide" id="slide-9" aria-labelledby="slide-title-9">
+            <div class="slide-content">
+                <h2 id="slide-title-9">How Can We Check Our Work?</h2>
+                <ol>
+                    <li><strong>Automated Tools:</strong> WAVE extension, Browser DevTools (Lighthouse). Good start,
+                        catch ~30-40%.</li>
+                    <li><strong>Manual Checks:</strong>
+                        <ul>
+                            <li><strong>Keyboard Test:</strong> Navigate EVERYTHING with Tab, Arrows, Enter, Space. Is
+                                focus clear?</li>
+                            <li>Color Contrast Checks</li>
+                            <li>Basic Screen Reader Test (NVDA, VoiceOver, JAWS)</li>
+                        </ul>
+                    </li>
+                    <li><strong>User Testing:</strong> Involve people with disabilities - the ultimate test!</li>
+                </ol>
+                <aside class="tech-note">Uses nested ordered/unordered lists. Emphasizes manual testing.</aside>
+            </div>
+        </section>
+
+        <section class="slide" id="slide-10" aria-labelledby="slide-title-10">
+            <div class="slide-content">
+                <h2 id="slide-title-10">Why Bother? Accessibility IS Quality!</h2>
+                <ul class="benefits-list">
+                    <li>✅ <strong>Better Usability:</strong> Benefits ALL users.</li>
+                    <li>📈 <strong>Wider Audience:</strong> ~1B people + older users.</li>
+                    <li>🔍 <strong>Improved SEO:</strong> Overlaps with best practices.</li>
+                    <li>💖 <strong>Enhanced Brand:</strong> Shows inclusion & ethics.</li>
+                    <li>⚖️ <strong>Legal Compliance:</strong> Reduces risk.</li>
+                    <li>💡 <strong>Innovation Driver:</strong> Constraints spark creativity.</li>
+                </ul>
+                <aside class="tech-note">Uses icons/emojis in list for visual interest (ensure they have text
+                    equivalent).</aside>
+            </div>
+        </section>
+        <section class="slide" id="slide-11" aria-labelledby="slide-title-11">
+            <div class="slide-content">
+                <h2 id="slide-title-11">Helpful Resources & Tools</h2>
+                <p>Continue your learning journey with these tools and guidelines:</p>
+                <div class="resources-grid">
+                    <div class="resource-column">
+                        <h3>For Developers</h3>
+                        <ul>
+                            <li><a href="https://validator.w3.org/" target="_blank" rel="noopener noreferrer">W3C
+                                    HTML/CSS Validators</a></li>
+                            <li><a href="https://www.deque.com/axe/devtools/" target="_blank"
+                                    rel="noopener noreferrer">Axe DevTools</a> (Browser Ext.)</li>
+                            <li><a href="https://www.nvaccess.org/" target="_blank" rel="noopener noreferrer">NVDA
+                                    Screen Reader</a> (Win, Free)</li>
+                            <li><a href="https://www.w3.org/WAI/ARIA/apg/" target="_blank"
+                                    rel="noopener noreferrer">WAI-ARIA Authoring Practices</a> (APG)</li>
+                            <li><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility" target="_blank"
+                                    rel="noopener noreferrer">MDN Web Docs - Accessibility</a></li>
+                        </ul>
+                    </div>
+                    <div class="resource-column">
+                        <h3>For Designers</h3>
+                        <ul>
+                            <li><a href="https://webaim.org/resources/contrastchecker/" target="_blank"
+                                    rel="noopener noreferrer">WebAIM Contrast Checker</a></li>
+                            <li>Browser DevTools (Contrast/A11y)</li>
+                            <li><a href="https://www.figma.com/community/plugin/734693434640378603/A11y-Focus-Orderer"
+                                    target="_blank" rel="noopener noreferrer">Figma A11y Plugins</a> (e.g., Stark, Focus
+                                Orderer)</li>
+                            <li><a href="https://material.io/design/usability/accessibility.html" target="_blank"
+                                    rel="noopener noreferrer">Design System A11y Guides</a> (e.g., Material)</li>
+                            <li><a href="https://inclusive-components.design/" target="_blank"
+                                    rel="noopener noreferrer">Inclusive Components Patterns</a></li>
+                        </ul>
+                    </div>
+                    <div class="resource-column">
+                        <h3>For Content Creators</h3>
+                        <ul>
+                            <li><a href="https://hemingwayapp.com/" target="_blank" rel="noopener noreferrer">Hemingway
+                                    App</a> (Readability)</li>
+                            <li><a href="https://www.plainlanguage.gov/guidelines/" target="_blank"
+                                    rel="noopener noreferrer">Plain Language Guidelines</a></li>
+                            <li><a href="https://www.w3.org/WAI/tips/writing/" target="_blank"
+                                    rel="noopener noreferrer">W3C Writing Tips for A11y</a></li>
+                            <li>MS Word/Google Docs A11y Checkers</li>
+                            <li><a href="https://webaim.org/techniques/alttext/" target="_blank"
+                                    rel="noopener noreferrer">WebAIM Alt Text Guide</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <aside class="tech-note">Provides role-specific starting points for further learning.</aside>
+            </div>
+        </section>
+        <section class="slide" id="slide-12" aria-labelledby="slide-title-12">
+            <div class="slide-content">
+                <h2 id="slide-title-12">It Takes a Village: Shared Responsibility</h2>
+                <p>Accessibility is everyone's job:</p>
+                <ul>
+                    <li><strong>Designers:</strong> Contrast, focus, consistency, clarity.</li>
+                    <li><strong>Content:</strong> Clear language, structure, alt text.</li>
+                    <li><strong>Developers:</strong> Semantic HTML, keyboard access, testing.</li>
+                    <li><strong>Leads/PMs:</strong> Prioritize, allocate time, foster learning.</li>
+                    <li><strong>Everyone:</strong> Be curious, learn basics, advocate!</li>
+                </ul>
+                <p class="highlight">Small changes have a HUGE impact!</p>
+                <aside class="tech-note">Clear role definition encourages collaboration.</aside>
+            </div>
+        </section>
+
+        <!-- <section class="slide qr-slide" id="slide-13" aria-labelledby="slide-title-13">
+            <div class="slide-content">
+                <h2 id="slide-title-13">View & Share This Presentation</h2>
+                <p>Scan the QR code or visit the link to view this presentation online and explore the accessible code.
+                </p>
+                <div class="qr-container">
+                    <img src="assets/qr-code-placeholder.png"
+                        alt="QR Code linking to the online version of this presentation.">
+                </div>
+                <p><a href="[YOUR-GITHUB-PAGES-LINK]" target="_blank"
+                        rel="noopener noreferrer">[YOUR-GITHUB-PAGES-LINK]</a></p>
+                <p><small>(Built with modern, accessible HTML & CSS)</small></p>
+            </div>
+        </section> -->
+
+        <section class="slide" id="slide-14" aria-labelledby="slide-title-14">
+            <div class="slide-content">
+                <h2 id="slide-title-14">Thank You!</h2>
+                <p>Let's build a web for everyone.</p>
+                <p><strong>Questions?</strong></p>
+                <p class="contact-info">Ithan lara</p>
+            </div>
+        </section>
+
+    </main>
+
+    <dialog id="help-guide" class="help-dialog">
+        <div class="dialog-content">
+            <h2>Slide Navigation</h2>
+            <p>You can navigate between slides using:</p>
+            <ul>
+                <li>Your <strong>mouse scroll wheel</strong></li>
+                <li><strong>Arrow Keys</strong> (Up / Down)</li>
+                <li><strong>PageUp / PageDown</strong> keys</li>
+                <li><strong>Spacebar</strong> (Next slide) / <strong>Shift+Spacebar</strong> (Previous slide)</li>
+            </ul>
+            <p>Use the <strong>Escape</strong> key to close this guide.</p>
+        </div>
+        <button type="button" class="close-button" aria-label="Close help guide">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+                focusable="false" width="20" height="20">
+                <path fill-rule="evenodd"
+                    d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+                    clip-rule="evenodd" />
+            </svg>
+            <span class="visually-hidden">Close</span>
+        </button>
+    </dialog>
+
+
+
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const helpToggleButton = document.getElementById('help-toggle');
+            const helpDialog = document.getElementById('help-guide');
+            const helpDialogCloseButton = helpDialog.querySelector('.close-button');
+            if (helpToggleButton && helpDialog && helpDialogCloseButton) {
+                helpToggleButton.addEventListener('click', () => {
+                    helpDialog.showModal(); // Use showModal for accessibility benefits
+                });
+
+                helpDialogCloseButton.addEventListener('click', () => {
+                    helpDialog.close();
+                });
+
+                // Optional: Close dialog if clicking on the backdrop
+                helpDialog.addEventListener('click', (event) => {
+                    if (event.target === helpDialog) {
+                        helpDialog.close();
+                    }
+                });
+                // Event listener for the F1 key to open the help dialog
+                document.addEventListener('keydown', (event) => {
+                    if (event.key === 'F1') {
+                        event.preventDefault(); // Prevent default F1 behavior (help menu)
+                        helpDialog.showModal(); // Show the help dialog
+                    }
+                });
+
+            }
+        });
+
+
+
+    </script>
+
+
+
+</body>
+
+</html>

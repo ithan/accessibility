@@ -1,0 +1,891 @@
+/* style.css - Accessible Presentation Styles */
+
+/*==============================
+  0. CSS Layers Setup
+==============================*/
+@layer reset, base, layout, components, utilities;
+
+/*==============================
+  1. Reset Layer
+==============================*/
+@layer reset {
+
+  /* Basic Reset */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* More robust reset elements */
+  html {
+    -webkit-text-size-adjust: 100%;
+    /* Prevent font scaling in landscape */
+    scroll-behavior: smooth;
+    /* Smooth scroll for skip link */
+  }
+
+  body {
+    min-height: 100vh;
+    line-height: 1.5;
+    /* Baseline */
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+    line-height: 1.2;
+    /* Tighter line height for headings */
+  }
+
+  ul,
+  ol {
+    list-style-position: inside;
+    /* Or adjust as needed */
+  }
+
+  /* Remove default list styles if customizing */
+  /* ul[class], ol[class] {
+      list-style: none;
+  } */
+
+  /* Improve accessibility for users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/*==============================
+  2. Base Layer (Variables, Body, Typography)
+==============================*/
+@layer base {
+  :root {
+    /* Color Palette - Light Mode */
+    --color-text-light: #18181b;
+    /* Near black */
+    --color-bg-light: #fafafa;
+    /* Near white */
+    --color-primary-light: #2563eb;
+    /* Blue */
+    --color-secondary-light: #4f46e5;
+    /* Indigo */
+    --color-accent-light: #db2777;
+    /* Pink */
+    --color-muted-light: #71717a;
+    /* Gray */
+    --color-border-light: #d4d4d8;
+    --color-focus-ring-light: var(--color-primary-light);
+
+    /* Color Palette - Dark Mode */
+    --color-text-dark: #e4e4e7;
+    /* Light gray */
+    --color-bg-dark: #1f2937;
+    /* Dark blue-gray */
+    --color-primary-dark: #60a5fa;
+    /* Lighter Blue */
+    --color-secondary-dark: #818cf8;
+    /* Lighter Indigo */
+    --color-accent-dark: #f472b6;
+    /* Lighter Pink */
+    --color-muted-dark: #a1a1aa;
+    /* Lighter Gray */
+    --color-border-dark: #4b5563;
+    --color-focus-ring-dark: var(--color-primary-dark);
+
+    /* Font Families */
+    --font-primary: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --font-heading: var(--font-primary);
+    /* Or a different display font */
+    --font-mono: 'Courier New', Courier, monospace;
+
+    /* Font Weights */
+    --fw-normal: 400;
+    --fw-bold: 700;
+
+    /* Spacing Scale (using fluid clamp for some) */
+    --space-xs: clamp(0.25rem, 0.5vw + 0.1rem, 0.5rem);
+    --space-sm: clamp(0.5rem, 1vw + 0.2rem, 1rem);
+    --space-md: clamp(1rem, 2vw + 0.5rem, 1.5rem);
+    --space-lg: clamp(1.5rem, 3vw + 1rem, 3rem);
+    --space-xl: clamp(2rem, 4vw + 1.5rem, 4rem);
+
+    /* Transitions */
+    --transition-speed: 0.2s;
+    --transition-ease: ease-in-out;
+
+    /* Border Radius */
+    --border-radius-sm: 0.25rem;
+    --border-radius-md: 0.5rem;
+
+    /* Default to Light Mode Variables */
+    --text-color: var(--color-text-light);
+    --bg-color: var(--color-bg-light);
+    --primary-color: var(--color-primary-light);
+    --secondary-color: var(--color-secondary-light);
+    --accent-color: var(--color-accent-light);
+    --muted-color: var(--color-muted-light);
+    --border-color: var(--color-border-light);
+    --focus-ring-color: var(--color-focus-ring-light);
+  }
+
+  /* Dark Mode Preference */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text-color: var(--color-text-dark);
+      --bg-color: var(--color-bg-dark);
+      --primary-color: var(--color-primary-dark);
+      --secondary-color: var(--color-secondary-dark);
+      --accent-color: var(--color-accent-dark);
+      --muted-color: var(--color-muted-dark);
+      --border-color: var(--color-border-dark);
+      --focus-ring-color: var(--color-focus-ring-dark);
+    }
+  }
+
+  /* Body Styling */
+  body {
+    font-family: var(--font-primary);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    font-size: 100%;
+    /* Base font size (usually 16px) */
+    transition: background-color var(--transition-speed) var(--transition-ease), color var(--transition-speed) var(--transition-ease);
+  }
+
+  /* Base Typography */
+  p {
+    line-height: 1.7;
+    /* More readable line height for paragraphs */
+    max-width: 75ch;
+    /* Optimal reading line length */
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    font-weight: var(--fw-bold);
+    color: var(--primary-color);
+    /* Headings stand out */
+  }
+
+  h1 {
+    /* Fluid Typography */
+    font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 4vw + 0.8rem, 3rem);
+  }
+
+  h3 {
+    font-size: clamp(1.4rem, 3vw + 0.6rem, 2.2rem);
+  }
+
+  a {
+    color: var(--secondary-color);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color var(--transition-speed) var(--transition-ease);
+
+    &:hover {
+      text-decoration-thickness: 2px;
+    }
+  }
+
+  strong,
+  b {
+    font-weight: var(--fw-bold);
+    color: var(--accent-color);
+    /* Make strong stand out */
+  }
+
+  code {
+    font-family: var(--font-mono);
+    background-color: color-mix(in srgb, var(--bg-color) 80%, var(--text-color) 20%);
+    padding: 0.1em 0.3em;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.9em;
+  }
+
+  blockquote {
+    border-inline-start: 4px solid var(--border-color);
+    padding-inline-start: var(--space-md);
+    margin-block: var(--space-md);
+    font-style: italic;
+    color: var(--muted-color);
+
+    cite {
+      display: block;
+      margin-top: var(--space-sm);
+      font-style: normal;
+    }
+  }
+
+  /* Accessibility Focus Styles */
+  :focus-visible {
+    outline: 3px solid var(--focus-ring-color);
+    outline-offset: 2px;
+    border-radius: var(--border-radius-sm);
+    /* Optional: match element radius */
+    /* Ensure focus is visible on dark/light backgrounds */
+    box-shadow: 0 0 0 4px var(--bg-color);
+  }
+
+  /* Remove focus style for mouse users if not needed, :focus-visible handles keyboard */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+}
+
+
+/*==============================
+  3. Layout Layer (Presentation Container, Slides)
+==============================*/
+@layer layout {
+  .presentation-container {
+    /* Full height scroll container */
+    height: 100vh;
+    overflow-y: scroll;
+    /* CSS Scroll Snapping */
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    /* Smooth scrolling between slides */
+  }
+
+  .slide {
+    height: 100vh;
+    /* Each slide takes full viewport height */
+    width: 100%;
+    scroll-snap-align: start;
+    /* Snap slides to the top */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Vertically center content */
+    align-items: center;
+    /* Horizontally center content */
+    padding: var(--space-lg);
+    position: relative;
+    /* For absolute positioning children like notes */
+    border-bottom: 1px solid var(--border-color);
+    /* Subtle separator */
+
+    /* Container Query Setup (Optional, useful if slide content gets complex) */
+    container-type: inline-size;
+    container-name: slide-container;
+  }
+
+  .slide:last-of-type {
+    border-bottom: none;
+  }
+
+  .slide-content {
+    max-width: 1250px;
+    /* Max width for content readability */
+    width: 100%;
+    /* Add animations with motion consideration */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInSlide 0.6s forwards ease-out;
+    animation-delay: 0.2s;
+    /* Slight delay */
+  }
+
+  @keyframes fadeInSlide {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Basic Column Layout Helper */
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    /* Responsive columns */
+    gap: var(--space-lg);
+    margin-block: var(--space-md);
+  }
+
+  /* Grid Layout Helper */
+  .pour-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+    gap: var(--space-md);
+    margin-block: var(--space-md);
+  }
+
+  /* Container Query Example: Adjust columns based on slide width */
+  @container slide-container (max-width: 700px) {
+    .columns {
+      grid-template-columns: 1fr;
+      /* Stack columns on smaller slides */
+    }
+
+    .pour-grid {
+      grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+    }
+  }
+}
+
+
+/*==============================
+  4. Components Layer (Specific Slide Styles, Elements)
+==============================*/
+@layer components {
+
+  /* Skip Link Styling */
+  .skip-link {
+    position: absolute;
+    top: -10em;
+    /* Hide off-screen */
+    left: 1rem;
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--border-radius-md);
+    z-index: 1000;
+    transition: top var(--transition-speed) var(--transition-ease);
+
+    &:focus {
+      top: 1rem;
+      /* Bring into view on focus */
+      outline: none;
+      /* Custom style replaces outline */
+    }
+  }
+
+  /* Title Slide Specifics */
+  .title-slide {
+    text-align: center;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--primary-color) 15%, transparent), color-mix(in srgb, var(--secondary-color) 15%, transparent));
+
+    h1 {
+      color: var(--text-color);
+      /* Override default heading color for title */
+      margin-bottom: var(--space-xs);
+    }
+
+    .subtitle {
+      font-size: clamp(1.2rem, 2vw + 0.8rem, 2rem);
+      color: var(--accent-color);
+      margin-bottom: var(--space-md);
+      font-weight: var(--fw-normal);
+    }
+
+    .presenter-info {
+      color: var(--muted-color);
+      margin-bottom: var(--space-sm);
+      font-size: 1.1rem;
+    }
+
+    .meta-info {
+      font-size: 0.9rem;
+      color: var(--muted-color);
+    }
+  }
+
+  /* General Slide Content Styling */
+  .slide {
+    h2 {
+      margin-bottom: var(--space-md);
+      color: var(--secondary-color);
+      /* Different color for slide titles */
+    }
+
+    ul,
+    ol {
+      margin-block: var(--space-md);
+      padding-inline-start: var(--space-md);
+      /* Indent lists */
+
+      li {
+        margin-bottom: var(--space-sm);
+
+        &::marker {
+          color: var(--accent-color);
+          /* Style list markers */
+          font-weight: var(--fw-bold);
+        }
+      }
+    }
+
+    ul li::marker {
+      content: '✓ ';
+      /* Example custom marker */
+    }
+
+    /* ol uses default numbers */
+
+    .highlight {
+      color: var(--accent-color);
+      font-weight: var(--fw-bold);
+      background-color: color-mix(in srgb, var(--accent-color) 10%, transparent);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--border-radius-sm);
+      display: inline-block;
+      /* Makes background fit content */
+      margin-top: var(--space-md);
+    }
+
+    aside.tech-note {
+      float: right;
+      margin-block: var(--space-md);
+      font-size: 0.8rem;
+      /* Use main text color instead of muted for better contrast */
+      color: var(--text-color);
+      /* Create a more distinct background */
+      background-color: color-mix(in srgb, var(--bg-color) 80%, var(--accent-color) 15%);
+      /* Add a distinctive border */
+      border-left: 3px solid var(--accent-color);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--border-radius-sm);
+      font-style: italic;
+      clear: both;
+      /* Optional: add a subtle box shadow for definition */
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+
+
+  }
+
+  /* Door Comparison Slide */
+  .door-comparison {
+    display: flex;
+    gap: var(--space-lg);
+    justify-content: center;
+    align-items: flex-start;
+    margin-block: var(--space-md);
+    flex-wrap: wrap;
+    /* Allow wrapping on small screens */
+
+    figure {
+      text-align: center;
+      max-width: 300px;
+
+      /* --- Styles applied to IMG based on FIGURE state --- */
+
+      /* 1. Apply styles to IMG when FIGURE is hovered or contains focus */
+      &:is(:hover, :focus) {
+        img {
+          /* Target visual state for the image */
+          scale: 2;
+          /* Scale stays 1 -> 2 as requested */
+
+          /* Higher z-index for the image */
+          z-index: 2;
+          /* Use z-index 2 as per your last example */
+
+          /* Cancel the reset animation on the image */
+          animation: none;
+        }
+
+        /* You could add styles for the figure itself here too if needed */
+        /* e.g., outline: 2px solid red; */
+      }
+
+      /* 2. Apply z-index reset animation to IMG when FIGURE is NOT hovered/focused */
+      &:not(:hover, :focus) img {
+        /* Add back linear forwards for correct animation behaviour */
+        animation: reset-z-index-on-leave var(--transition-speed);
+      }
+    }
+
+
+    /* --- Base IMG Styles --- */
+    img {
+      /* Positioning context and base z-index */
+      position: relative;
+      /* Keeps image in flow, allows z-index */
+      z-index: 1;
+      /* Base z-index (matches keyframes) */
+
+      /* Initial visual state */
+      scale: 1;
+      /* Initial scale = 1 (as requested) */
+
+      /* Transition the scale property */
+      /* Note: 'scale' is newer, 'transform' has wider support if needed */
+      transition: scale var(--transition-speed) var(--transition-ease);
+
+      /* Performance hint */
+      will-change: scale;
+      /* Use scale if transitioning scale, or transform if transitioning transform */
+
+      /* Other base image styles */
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-md);
+      margin-bottom: var(--space-xs);
+      width: 300px;
+      aspect-ratio: 5/6;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+
+    }
+
+    figcaption {
+      font-size: 0.9rem;
+      color: var(--muted-color);
+    }
+  }
+
+  /* POUR Grid Item */
+  .pour-item {
+    border: 1px solid var(--border-color);
+    padding: var(--space-md);
+    border-radius: var(--border-radius-md);
+    background-color: color-mix(in srgb, var(--bg-color) 95%, var(--primary-color) 5%);
+
+    h3 {
+      color: var(--accent-color);
+      margin-bottom: var(--space-sm);
+      font-size: 1.2em;
+    }
+  }
+
+  /* Benefits List */
+  .benefits-list {
+    list-style: none;
+    /* Remove default markers */
+    padding-inline-start: 0;
+
+    li {
+      background-color: color-mix(in srgb, var(--bg-color) 90%, var(--secondary-color) 10%);
+      padding: var(--space-sm);
+      border-radius: var(--border-radius-md);
+      margin-bottom: var(--space-sm);
+      border-left: 4px solid var(--secondary-color);
+    }
+  }
+
+
+  /* QR Code Slide */
+  .qr-slide {
+    text-align: center;
+
+    .qr-container {
+      max-width: 250px;
+      /* Control QR size */
+      margin: var(--space-md) auto;
+      border: 1px solid var(--border-color);
+      padding: var(--space-sm);
+      border-radius: var(--border-radius-md);
+
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    a {
+      word-break: break-all;
+      /* Prevent long links overflowing */
+    }
+  }
+
+  /* Contact Info */
+  .contact-info {
+    margin-top: var(--space-lg);
+    font-size: 0.9rem;
+    color: var(--muted-color);
+  }
+
+  /* Add within @layer components */
+
+  .resources-grid {
+    display: grid;
+    /* Create 3 columns, ensuring they don't get too small */
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+    gap: var(--space-lg);
+    margin-block: var(--space-md);
+  }
+
+  .resource-column {
+    border: 1px solid var(--border-color);
+    padding: var(--space-md);
+    border-radius: var(--border-radius-md);
+    background-color: color-mix(in srgb, var(--bg-color) 98%, var(--muted-color) 2%);
+
+    h3 {
+      color: var(--primary-color);
+      margin-bottom: var(--space-md);
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: var(--space-xs);
+      display: inline-block;
+      /* Make border fit text */
+    }
+
+    ul {
+      padding-inline-start: var(--space-sm);
+      /* Adjust list padding */
+      margin-block: 0;
+    }
+
+    li {
+      margin-bottom: var(--space-xs);
+
+      /* Tighter spacing for links */
+      &::marker {
+        content: '> ';
+        color: var(--secondary-color);
+      }
+
+      /* Simple marker */
+    }
+
+    a {
+      /* Optional: style links specifically here if needed */
+      font-size: 0.95em;
+    }
+  }
+
+  /* Optional: Tweak grid columns for very wide screens if desired */
+  @container slide-container (min-width: 1200px) {
+    .resources-grid {
+      grid-template-columns: repeat(3, 1fr);
+      /* Force 3 columns on wide screens */
+    }
+  }
+
+}
+
+
+/*==============================
+  5. Utilities Layer (Optional helper classes)
+==============================*/
+@layer utilities {
+  .visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  .content-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+@keyframes reset-z-index-on-leave {
+
+  0%,
+  100% {
+    z-index: 1;
+  }
+}
+
+/* Add within @layer components */
+
+/* Help Widget Button */
+.help-button {
+  position: fixed; /* Stick to viewport */
+  top: var(--space-md);
+  right: var(--space-md);
+  z-index: 100; /* Ensure it's above slides */
+
+  /* Styling */
+  background-color: var(--secondary-color);
+  color: var(--bg-color); /* High contrast text/icon */
+  border: none;
+  border-radius: 50%; /* Make it round */
+  /* transform: translateX(50%); */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:color-mix(in srgb, var(--bg-color) 80%, var(--accent-color) 15%);
+  color: var(--text-color);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-md);
+  font-size: 0.8rem;
+  white-space: nowrap;
+
+  /* Anchor name for potential positioning */
+  anchor-name: --help-anchor;
+
+  /* SVG Icon Styling */
+  svg {
+    width: 24px;
+    height: 24px;
+    pointer-events: none; /* Prevent SVG from capturing clicks */
+  }
+
+
+  &:hover {
+    outline: 1px solid var(--border-color);
+  }
+
+  /* Focus style specifically for the button */
+  &:focus-visible {
+    outline: 3px solid var(--focus-ring-color);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 4px var(--bg-color), 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Help Guide Dialog */
+.help-dialog {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 0; /* Remove default padding to control internally */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  max-width: 400px; /* Limit width */
+  width: calc(100% - (var(--space-lg) * 2)); /* Responsive width */
+  margin: auto; /* Helps center if not using showModal */
+  background-color: var(--bg-color);
+  color: var(--text-color);
+
+   /* Basic open state animation */
+   opacity: 0;
+   transform: scale(0.95);
+   transition: opacity var(--transition-speed) var(--transition-ease), transform var(--transition-speed) var(--transition-ease), display var(--transition-speed) allow-discrete;
+
+
+  /* Styles when dialog is open */
+  &[open] {
+      opacity: 1;
+      transform: scale(1);
+
+       /* allow-discrete needed for animating display */
+       @starting-style {
+           opacity: 0;
+           transform: scale(0.95);
+       }
+   }
+
+
+
+  /* Backdrop for modal dialog */
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    opacity: 0;
+    transition: opacity var(--transition-speed) var(--transition-ease), display var(--transition-speed) allow-discrete;
+
+  }
+   &[open]::backdrop {
+       opacity: 1;
+       @starting-style {
+           opacity: 0;
+       }
+   }
+
+
+  /* Internal Dialog Content */
+  .dialog-content {
+      padding: var(--space-lg);
+      padding-block-end: var(--space-md); /* Less padding at bottom before close button */
+
+      h2 {
+          color: var(--primary-color);
+          margin-bottom: var(--space-md);
+          font-size: 1.5rem;
+      }
+
+      p {
+          max-width: none; /* Override base p max-width */
+          margin-bottom: var(--space-sm);
+      }
+
+      ul {
+          padding-inline-start: var(--space-md);
+          margin-block: var(--space-md);
+          li {
+             margin-bottom: var(--space-xs);
+              &::marker { content: '⌨️ '; }
+          }
+      }
+  }
+
+  /* Close Button inside Dialog */
+  .close-button {
+    position: absolute;
+    top: var(--space-sm);
+    right: var(--space-sm);
+    background: none;
+    border: none;
+    border-radius: 50%;
+    padding: var(--space-xs);
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--muted-color);
+    cursor: pointer;
+    transition: background-color var(--transition-speed) var(--transition-ease), color var(--transition-speed) var(--transition-ease);
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    &:hover {
+        color: var(--text-color);
+        background-color: color-mix(in srgb, var(--border-color) 50%, transparent);
+    }
+
+    &:focus-visible {
+        color: var(--text-color);
+        background-color: color-mix(in srgb, var(--border-color) 50%, transparent);
+        outline: 2px solid var(--focus-ring-color);
+        outline-offset: 1px;
+    }
+  }
+}
+
+/* Add to @layer base or components, ensure it overrides default focus if necessary */
+.help-button:focus:not(:focus-visible) {
+    outline: none; /* Remove outline for mouse click focus on help button */
+}
+.close-button:focus:not(:focus-visible) {
+    outline: none; /* Remove outline for mouse click focus on close button */
+}

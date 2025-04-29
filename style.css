@@ -446,6 +446,17 @@
           /* Style list markers */
           font-weight: var(--fw-bold);
         }
+        
+        &.no-checkmark{
+          list-style: none;
+
+          list-style-type: none;
+          display: block;
+          /* Remove default marker */
+          padding-left: 0;
+          /* Remove padding for no-checkmark items */
+          margin-left: 0;
+        }
       }
     }
 

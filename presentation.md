@@ -13,7 +13,7 @@
 
 ## Slide 2: What IS Web Accessibility (A11y)?
 
-Good morning/afternoon, everyone. Today, I want to discuss Web Accessibility, often shortened to A11y.
+Good afternoon, everyone. Today, I want to discuss Web Accessibility, often shortened to A11y.
 
 At its core, accessibility is about designing and building our websites and digital tools so they can be used effectively by **all** people, including those with disabilities. It focuses on enabling everyone to perceive, understand, navigate, and interact with the web.
 

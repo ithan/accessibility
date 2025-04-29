@@ -501,7 +501,7 @@
      & ul {
        padding-inline-start: var(--space-md);
        margin-block: var(--space-sm) 0;
-       list-style-type: disc; /* Use standard disc */
+       list-style-type: none; /* Use standard disc */
      }
      & li {
        margin-bottom: var(--space-xs);

@@ -50,7 +50,7 @@
                         <li><strong>Keyboard Navigation:</strong> All interactive elements (links, theme button) are reachable and operable using only the keyboard (WCAG 2.1.1: Keyboard).</li>
                         <li><strong>Visible Focus:</strong> A clear visual indicator (outline/box-shadow using <code>:focus-visible</code>) highlights the element currently receiving keyboard focus, essential for sighted keyboard users (WCAG 2.4.7: Focus Visible).</li>
                         <li><strong>Landmarks:</strong> Semantic HTML elements like <code>&lt;header&gt;</code> (with implicit <code>role="banner"</code>), <code>&lt;nav&gt;</code> (<code>role="navigation"</code>), and <code>&lt;main&gt;</code> define major page regions, helping assistive technology (AT) users understand the layout and navigate quickly (WCAG 1.3.1: Info and Relationships, WCAG 2.4.1: Bypass Blocks).</li>
-                        <li><strong>`aria-label` on `<nav>`:</strong> Provides a specific accessible name ("Main Navigation") for the navigation region, distinguishing it if multiple nav sections existed (WCAG 4.1.2: Name, Role, Value).</li>
+                        <li><strong>`aria-label` on `&lt;nav>`:</strong> Provides a specific accessible name ("Main Navigation") for the navigation region, distinguishing it if multiple nav sections existed (WCAG 4.1.2: Name, Role, Value).</li>
                         <li><strong>Logical Order:</strong> Elements receive focus in a sequence that follows the visual layout and makes sense (WCAG 2.4.3: Focus Order).</li>
                          <li><strong>Theme Toggle Usability:</strong> Button has an accessible name (`aria-label`) that updates based on the current state, informing users of its function (WCAG 4.1.2). Includes a `title` attribute for sighted mouse users.</li>
                     </ul>
@@ -197,7 +197,7 @@
                      <li><strong>Informative vs. Decorative:</strong> Provide descriptive alternatives for informative visuals. Use empty `alt=""` (for `&lt;img>`) or `aria-label=""` or `role="presentation"` (for CSS/SVG) to mark purely decorative visuals, so they are ignored by assistive technologies.</li>
                      <li><strong>Figure/Figcaption:</strong> Use <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code> to programmatically associate visual content (images, charts, code blocks) with a caption. The text alternative (`alt` or `aria-label`) should still describe the visual itself, while the caption provides context or summary (WCAG 1.3.1).</li>
                      <li><strong>Icons (Font/SVG):</strong> Icons conveying meaning need accessible names. If text is already present (e.g., button label), hide the decorative icon with `aria-hidden="true"`. If the icon stands alone, provide an accessible name (e.g., visually hidden text, `aria-label`, SVG <code>&lt;title&gt;</code>). Use `role="img"` for standalone icon SVGs and `focusable="false"` to remove them from the tab order (WCAG 1.1.1, WCAG 4.1.2).</li>
-                    <li><strong>CSS Images:</strong> Providing accessible names for CSS background images is tricky. Using `role="img"` and `aria-label` on the container element is one approach, but ensure the element itself is otherwise semantically neutral (like a `<span>` or `<div>`).</li>
+                    <li><strong>CSS Images:</strong> Providing accessible names for CSS background images is tricky. Using `role="img"` and `aria-label` on the container element is one approach, but ensure the element itself is otherwise semantically neutral (like a `&ltspan>` or `&ltdiv>`).</li>
                  </ul>
              </aside>
         </section>
@@ -330,11 +330,11 @@
                     <i class="fa-solid fa-circle-info"></i>
                      <strong>Accessibility Points:</strong>
                     <ul>
-                        <li><strong>`<caption>`:</strong > Provides a programmatic title for the data table, helping users understand its purpose before diving into the data (WCAG 1.3.1).</li>
-                        <li><strong>`<thead>`, `<tbody>`, `<tfoot>`:</strong > Define the header, body, and footer sections of the table, adding structural context (WCAG 1.3.1).</li>
-                        <li><strong>`<th>` (Table Header Cell):</strong > Correctly marks cells that function as headers for columns or rows (WCAG 1.3.1).</li>
-                        <li><strong>`scope="col"` / `scope="row"`:</strong > Explicitly associates header cells (`<th>`) with the column (`col`) or row (`row`) they apply to. This is crucial for screen readers to correctly announce the relevant header(s) as a user navigates through data cells (`<td>`), maintaining context (WCAG 1.3.1).</li>
-                        <li><strong>Data Cell (`<td>`):</strong > Contains the actual data points corresponding to the headers.</li>
+                        <li><strong>`&ltcaption>`:</strong > Provides a programmatic title for the data table, helping users understand its purpose before diving into the data (WCAG 1.3.1).</li>
+                        <li><strong>`&ltthead>`, `&lttbody>`, `&lttfoot>`:</strong > Define the header, body, and footer sections of the table, adding structural context (WCAG 1.3.1).</li>
+                        <li><strong>`&ltth>` (Table Header Cell):</strong > Correctly marks cells that function as headers for columns or rows (WCAG 1.3.1).</li>
+                        <li><strong>`scope="col"` / `scope="row"`:</strong > Explicitly associates header cells (`&ltth>`) with the column (`col`) or row (`row`) they apply to. This is crucial for screen readers to correctly announce the relevant header(s) as a user navigates through data cells (`&lttd>`), maintaining context (WCAG 1.3.1).</li>
+                        <li><strong>Data Cell (`&lttd>`):</strong > Contains the actual data points corresponding to the headers.</li>
                         <li><strong>Clarity over Complexity:</strong> Simple table structures (like this example) are generally easier for assistive technologies to parse and for users to understand than tables with merged cells (`colspan`, `rowspan`) or multiple levels of headers. For complex tables, using `id` on headers and the `headers` attribute on data cells might be necessary, but `scope` is preferred for simpler cases.</li>
                         <li><strong>Responsiveness:</strong> Wrapping the table in a container with `overflow-x: auto` ensures content doesn't break the layout on small screens and allows horizontal scrolling if needed.</li>
                         <li><strong>Icons with Labels:</strong> The icons used provide a visual cue, but the `aria-label` attribute ensures the meaning ("Supported", "Not Supported", "Partial Support") is conveyed to screen reader users (WCAG 1.1.1).</li>

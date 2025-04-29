@@ -7,51 +7,87 @@
     <link rel="stylesheet" href="style.css">
     <meta name="description" content="Entry point to the Web Accessibility Presentation and Interactive Demo.">
     <style>
-        /* Add simple styles for the link tree page if needed */
+        /* Add simple styles for the link tree page */
         @layer components {
             .link-tree-container {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                min-height: 80vh; /* Adjust as needed */
+                min-height: 80vh;
                 text-align: center;
-                padding: var(--space-lg);
+                padding: var(--space-md); /* Use smaller padding on mobile */
             }
 
             .link-tree-container h1 {
                 margin-bottom: var(--space-lg);
                 color: var(--primary-color);
+                font-size: clamp(1.8rem, 5vw + 1rem, 2.5rem); /* Responsive font size */
+            }
+
+            .link-tree-container p {
+                 margin-bottom: var(--space-lg);
+                 max-width: 60ch; /* Improve readability */
+            }
+
+            .link-buttons { /* Wrapper for buttons */
+                display: flex;
+                flex-direction: column; /* Stack vertically by default */
+                gap: var(--space-md); /* Space between buttons */
+                width: 100%;
+                max-width: 350px; /* Limit button width on larger screens */
+                margin-inline: auto; /* Center the button container */
             }
 
             .link-button {
-                display: inline-block;
+                display: block; /* Make buttons take full width of container */
                 padding: var(--space-md) var(--space-lg);
-                margin: var(--space-sm);
                 background-color: var(--primary-color);
                 color: var(--bg-color);
                 text-decoration: none;
                 border-radius: var(--border-radius-md);
                 font-weight: var(--fw-bold);
                 transition: background-color var(--transition-speed) var(--transition-ease), transform var(--transition-speed) var(--transition-ease);
-                border: 2px solid transparent; /* For focus outline consistency */
+                border: 2px solid transparent;
+                text-align: center; /* Ensure text is centered */
+                width: 100%; /* Ensure button takes full width */
             }
 
             .link-button:hover {
                 background-color: color-mix(in srgb, var(--primary-color) 85%, var(--text-color) 15%);
                 transform: translateY(-2px);
-                text-decoration: none; /* Keep underline off on hover */
+                text-decoration: none;
             }
 
-            /* Use existing focus-visible from style.css, but ensure it applies */
             .link-button:focus-visible {
                  outline: 3px solid var(--focus-ring-color);
                  outline-offset: 2px;
-                 box-shadow: 0 0 0 4px var(--bg-color); /* Match existing focus style */
+                 box-shadow: 0 0 0 4px var(--bg-color);
             }
+
              .link-button:focus:not(:focus-visible) {
-                 outline: none; /* Remove outline for mouse focus */
+                 outline: none;
                  box-shadow: none;
+             }
+
+             /* Media Query for larger screens (e.g., tablets and desktops) */
+             @media (min-width: 600px) {
+                .link-tree-container {
+                    padding: var(--space-lg); /* Increase padding */
+                }
+
+                .link-buttons {
+                    flex-direction: row; /* Buttons side-by-side */
+                    justify-content: center; /* Center buttons horizontally */
+                    max-width: none; /* Allow container to grow */
+                    width: auto; /* Adjust width based on content */
+                }
+
+                .link-button {
+                    width: auto; /* Allow buttons to size based on content */
+                    display: inline-block; /* Revert to inline-block */
+                    margin: var(--space-sm); /* Add horizontal margin back */
+                }
              }
         }
     </style>
@@ -61,7 +97,7 @@
         <div class="link-tree-container">
             <h1>Accessibility Showcase</h1>
             <p>Choose an option below to explore practical web accessibility.</p>
-            <div>
+            <div class="link-buttons">
                 <a href="presentation.html" class="link-button">View Presentation</a>
                 <a href="demo/index.html" class="link-button">Explore Interactive Demo</a>
             </div>

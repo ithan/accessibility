@@ -158,15 +158,8 @@ Achieving accessibility isn't a siloed task; it requires collaboration across ou
 
 Everyone here can contribute by learning the fundamentals relevant to our work, staying curious, and consistently advocating for the needs of all users. Remember the 'automatic doors' example – often, improvements made for accessibility create a better experience for everyone.
 
----
 
-## Slide 13: QR Code / Share
-
-*(No specific speaker notes needed - Slide content is self-explanatory)*
-
----
-
-## Slide 14: Thank You & Questions
+## Slide 13: Thank You & Questions
 
 That concludes my overview. Thank you very much for your time and attention. By working together on accessibility, we can create more effective and welcoming digital products for everyone.
 

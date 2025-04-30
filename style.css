@@ -312,6 +312,18 @@
     /* Container Query Setup (Optional, useful if slide content gets complex) */
     container-type: inline-size;
     container-name: slide-container;
+
+    @media (max-width: 768px) { /* Adjust breakpoint as needed */
+      height: auto; /* Let height be determined by content */
+      min-height: 100vh; /* Still try to fill screen, but allow growth */
+      /* OR use dvh if you want to try it progressively & support allows */
+      /* min-height: 100dvh; */
+
+      justify-content: flex-start; /* Align content top on mobile */
+      /* Adjust padding for top/bottom alignment */
+      padding-top: var(--space-xl);
+      padding-bottom: var(--space-xl);
+    }
   }
 
   .slide:last-of-type {

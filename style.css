@@ -406,6 +406,17 @@
     }
   }
 
+   .company-logo_container {
+     display: flex;
+     justify-content: end;
+     padding-block-start: var(--space-sm);
+
+     & > img {
+      
+     }
+ }
+
+
   /* Title Slide Specifics */
   .title-slide {
     text-align: center;
